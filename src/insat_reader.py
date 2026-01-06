@@ -1,9 +1,8 @@
 import h5py
 import numpy as np
 
-def load_tb_lat_lon():
-
-    filepath = "C:/Users/lenovo/OneDrive/Desktop/TCC_INSAT_Project/data/3DIMG_18JUN2024_0000_L1C_SGP_V01R00.h5"
+def load_tb_lat_lon(filepath):
+    """Reads INSAT .h5 file provided by app upload"""
 
     with h5py.File(filepath, "r") as f:
 
@@ -21,20 +20,17 @@ def load_tb_lat_lon():
     Re      = 6378137.0
     Rp      = 6356752.3
 
-    # create mesh grid
     xx, yy = np.meshgrid(X, Y)
 
     x = np.deg2rad(xx)
     y = np.deg2rad(yy)
 
-    # eqn from geos projection spec
     cosx = np.cos(x)
     cosy = np.cos(y)
     sinx = np.sin(x)
     siny = np.sin(y)
 
     a = (H * cosx * cosy)**2 - (cosy**2 + (Re/Rp)**2 * siny**2) * (H**2 - Re**2)
-
     a[a < 0] = np.nan
     a = np.sqrt(a)
 

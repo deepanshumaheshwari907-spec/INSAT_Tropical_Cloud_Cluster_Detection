@@ -34,9 +34,12 @@ st.success("File uploaded successfully")
 st.info("Processing file…" )
 
 
-# ---------- LOAD Tb + GEO ----------
-Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
-
+# ---------- SAFE LOAD (No Crash on Cloud) ----------
+try:
+    Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
+except FileNotFoundError:
+    st.error("File could not be read. Try uploading again.")
+    st.stop()
 
 # ---------- PIPELINE ----------
 # ---------- THRESHOLD CONTROL ----------
@@ -148,3 +151,4 @@ for _, row in df.iterrows():
 
 
 st_folium(m, width=900, height=600)
+

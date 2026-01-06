@@ -35,11 +35,8 @@ st.info("Processing file…" )
 
 
 # ---------- LOAD Tb + GEO ----------
-try:
-    Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
-except TypeError:
-    # fallback for earlier version
-    Tb, lat, lon = load_tb_lat_lon()
+Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
+
 
 # ---------- PIPELINE ----------
 # ---------- THRESHOLD CONTROL ----------
@@ -148,5 +145,6 @@ for _, row in df.iterrows():
         color="blue",
         fill=False
     ).add_to(m)
+
 
 st_folium(m, width=900, height=600)

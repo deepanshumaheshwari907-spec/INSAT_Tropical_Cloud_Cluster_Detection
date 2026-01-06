@@ -85,3 +85,17 @@ User uploads `.h5` file in app.
 • Movement & evolution analysis  
 • Cyclogenesis precursor study  
 • Near-real-time automation  
+
+
+## Project Status
+
+This project is currently in a working and stable stage.
+Real INSAT-3D satellite data is successfully processed to detect
+Tropical Cloud Clusters based on IRBT thresholding and geometric criteria.
+
+### Future Enhancements (Planned)
+• Multi-scene batch processing
+• Time-series TCC tracking
+• Automatic data ingestion from MOSDAC
+• Cyclone precursor identification
+• Real-time monitoring dashboard

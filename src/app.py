@@ -53,14 +53,14 @@ except FileNotFoundError:
     st.stop()
 
 # ---------- PIPELINE ----------
-# ---------- THRESHOLD CONTROL ----------
+# ---------- PROCESSING WORKFLOW ----------
 st.markdown("### 🚀 Processing Workflow")
 st.write("""
 1️⃣ Upload INSAT-3D L1C (.h5) satellite file  
-2️⃣ IR Brightness Temperature threshold apply होता है  
-3️⃣ Cold tropical cloud pixels detect होते हैं  
-4️⃣ Valid Tropical Cloud Clusters filter होते हैं  
-5️⃣ Results → Table + Map + Human-Readable Summary
+2️⃣ IR Brightness Temperature (IRBT) threshold is applied  
+3️⃣ Cold convective cloud pixels are detected  
+4️⃣ Valid Tropical Cloud Clusters (TCC) are filtered using size & geometry rules  
+5️⃣ Results generated → Scientific Table + Map Visualization + Human-Readable Summary
 """)
 st.divider()
 st.subheader("Brightness Temperature Threshold (K)")

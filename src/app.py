@@ -103,6 +103,22 @@ if len(results) == 0:
 df = pd.DataFrame(results)
 
 st.success(f"{len(df)} Tropical Cloud Clusters detected")
+st.markdown("## 📊 Detection Dashboard")
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("Total Detected Clusters", len(regions))
+
+with col2:
+    st.metric("Valid TCC Systems", len(df))
+
+with col3:
+    st.metric("Avg Cloud-Top Temp (K)", f"{df['mean_tb'].mean():.2f}")
+
+with col4:
+    st.metric("Largest Cluster Radius (km)", f"{df['max_radius_km'].max():.1f}")
+
 
 st.subheader("Scientific TCC Feature Table")
 st.dataframe(df, width='stretch')

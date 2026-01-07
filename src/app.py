@@ -106,6 +106,13 @@ st.success(f"{len(df)} Tropical Cloud Clusters detected")
 
 st.subheader("Scientific TCC Feature Table")
 st.dataframe(df, width='stretch')
+st.download_button(
+    label="⬇ Download TCC Results (CSV)",
+    data=df.to_csv(index=False).encode("utf-8"),
+    file_name="TCC_detection_results.csv",
+    mime="text/csv"
+)
+
 
 # ---------- HUMAN FRIENDLY SUMMARY ----------
 st.subheader("Human-Readable Cluster Interpretation")

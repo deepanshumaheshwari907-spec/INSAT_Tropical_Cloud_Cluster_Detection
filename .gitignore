@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+
+data/
+uploaded_file.h5
+tcc_results.csv
+tcc_map.html

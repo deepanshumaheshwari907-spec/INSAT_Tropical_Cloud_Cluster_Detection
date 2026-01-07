@@ -54,6 +54,15 @@ except FileNotFoundError:
 
 # ---------- PIPELINE ----------
 # ---------- THRESHOLD CONTROL ----------
+st.markdown("### 🚀 Processing Workflow")
+st.write("""
+1️⃣ Upload INSAT-3D L1C (.h5) satellite file  
+2️⃣ IR Brightness Temperature threshold apply होता है  
+3️⃣ Cold tropical cloud pixels detect होते हैं  
+4️⃣ Valid Tropical Cloud Clusters filter होते हैं  
+5️⃣ Results → Table + Map + Human-Readable Summary
+""")
+st.divider()
 st.subheader("Brightness Temperature Threshold (K)")
 
 threshold = st.slider(

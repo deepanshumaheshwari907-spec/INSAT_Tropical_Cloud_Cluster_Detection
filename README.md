@@ -1,169 +1,133 @@
-# INSAT-3D Tropical Cloud Cluster (TCC) Detection System
+INSAT-3D Tropical Cloud Cluster (TCC) Detection System
 
-This project detects and analyzes **Tropical Cloud Clusters (TCC)** using  
+This project focuses on the detection and analysis of Tropical Cloud Clusters (TCC) using
 INSAT-3D Infrared Brightness Temperature (IRBT) satellite observations.
 
-The system identifies cold convective cloud regions, validates TCC structures,
-computes their scientific characteristics, and visualizes them on an interactive map.
+The application identifies cold convective cloud regions, filters valid TCC structures,
+computes their scientific characteristics, and visualizes them through an interactive map-based dashboard.
 
+🎯 Project Overview
 
----
+The project has been developed with the following objectives:
 
-## 🎯 Project Objective
+• Detect Tropical Cloud Clusters from INSAT-3D satellite imagery
+• Apply IRBT-based thresholding to identify deep convective clouds
+• Extract geometric and statistical properties of TCC systems
+• Provide both scientific metrics and easy-to-understand interpretations
+• Support research in tropical weather and convective cloud analysis
 
-The primary objectives of this project are:
+🛰 Satellite Data Details
 
-• Detect Tropical Cloud Clusters (TCC) from INSAT-3D satellite imagery  
-• Apply IRBT thresholding to identify deep convective clouds  
-• Compute geometric and physical characteristics of TCC  
-• Provide scientific as well as human-interpretable insights  
-• Assist in tropical weather & convective system analysis  
+Source : MOSDAC / ISRO
+Satellite : INSAT-3D
+Sensor : Imager
+Product Type : L1C – SGP
+Channel Used : Infrared (Brightness Temperature)
+Temporal Resolution : 30-minute interval
 
+Input Format : .h5 satellite file (uploaded through the app)
 
----
+⚙️ Processing Workflow
 
-## 🛰 Satellite Dataset
+The end-to-end workflow followed in this system is:
 
-Source : **MOSDAC / ISRO**  
-Sensor : **INSAT-3D Imager**  
-Product Type : **Level-1C (SGP)**  
-Channel Used : **IR (Brightness Temperature)**  
-Temporal Resolution : **30 Minutes**
+1️⃣ Load INSAT-3D L1C IRBT satellite data
+2️⃣ Convert raw sensor counts to Brightness Temperature
+3️⃣ Apply cold-cloud temperature threshold
+4️⃣ Detect connected convective cloud regions
+5️⃣ Validate Tropical Cloud Clusters based on:
 
-Input Format Supported : **.h5 Satellite File (User Uploads in App)**
+• Minimum spatial coverage
+• Cluster independence and structure shape
 
+6️⃣ Compute TCC-specific features including:
 
----
-
-## ⚙️ Processing Workflow (Pipeline)
-
-1️⃣ Load INSAT-3D L1C IRBT satellite data  
-2️⃣ Convert raw image counts → Brightness Temperature  
-3️⃣ Apply cold-cloud IR threshold  
-4️⃣ Detect connected convective cloud clusters  
-5️⃣ Validate TCC based on
-
-• Minimum spatial extent  
-• Independent circular cloud structure  
-
-6️⃣ Compute TCC features
-
-• Pixel count  
-• Mean / Minimum / Median Tb  
-• Temperature standard deviation  
-• Geographical center (Lat-Lon)  
+• Pixel count
+• Mean, Minimum and Median Tb
+• Temperature variability (Std. deviation)
+• Geographic center (Latitude–Longitude)
 • Minimum / Maximum / Mean radius (km)
 
-7️⃣ Generate outputs
+7️⃣ Present results through:
 
-✔ Scientific feature table  
-✔ AI-generated human readable summary  
+✔ Scientific feature table
+✔ Human-readable descriptive summary
 ✔ Interactive geo-map visualization
 
+🧪 Output Parameters
 
----
+For every detected TCC, the system provides:
 
-## 🧪 Output Parameters (Per Detected Cluster)
+• Cluster center latitude & longitude
+• Pixel count / cluster coverage
+• Mean brightness temperature
+• Minimum and median Tb
+• Temperature standard deviation
+• Minimum, maximum and mean radius
+• Indicators of convective cloud-top intensity
 
-The system provides the following parameters:
+💻 Tools & Technologies
 
-• Convective center latitude  
-• Convective center longitude  
-• Pixel count (cluster coverage)  
-• Mean Brightness Temperature  
-• Minimum Brightness Temperature  
-• Median Tb  
-• Standard deviation Tb  
-• Minimum radius  
-• Maximum radius  
-• Mean radius  
-• Cloud-top convective intensity indicator  
+• Python
+• NumPy & Pandas
+• h5py
+• Scikit-Image
+• Folium / Leaflet
+• Streamlit (Web Application)
 
+📊 Application Capabilities
 
----
+✔ Automatic detection of TCC from satellite data
+✔ Adjustable IRBT threshold
+✔ Cluster-wise feature extraction
+✔ Scientific & tabular output
+✔ Human-interpretable AI summary
+✔ Geo-referenced visualization on map
+✔ Option to download detection results
 
-## 💻 Technologies Used
+📌 Relevance & Use-Cases
 
-• Python  
-• NumPy  
-• Pandas  
-• h5py  
-• Scikit-Image  
-• Folium / Leaflet  
-• Streamlit (Web Interface)
+This work can support research and analysis in:
 
+• Tropical weather monitoring
+• Convective cloud structure studies
+• Pre-cyclogenesis cloud assessment
+• Monsoon convective system analysis
+• Academic & satellite-data research applications
 
----
+🚀 Planned Future Improvements
 
-## 📊 Application Features
+• Multi-scene / batch-level processing
+• Time-series tracking of TCC movement
+• Cloud lifecycle and evolution study
+• Automated data ingestion from MOSDAC
+• Cyclogenesis precursor investigation
+• Real-time monitoring dashboard
 
-✔ Automatic TCC Detection from Satellite Data  
-✔ Adjustable IRBT Threshold  
-✔ Cluster-wise Feature Extraction  
-✔ Scientific Output Table  
-✔ Human-Readable AI Summary  
-✔ Geo-Referenced Cluster Visualization  
-✔ Download Results Option  
+📌 Current Project Status
 
+The system is in a working and stable stage.
 
----
+It successfully processes real INSAT-3D satellite data to:
 
-## 📌 Use-Case & Significance
+• Detect convective cloud clusters
+• Filter valid TCC structures
+• Compute relevant physical and geometric parameters
+• Present results through an interactive Streamlit dashboard
 
-This project can support:
+👨‍🎓 Academic Note
 
-• Tropical weather system monitoring  
-• Convective cloud structure studies  
-• Pre-cyclogenesis cloud analysis  
-• Monsoon convective activity research  
-• Academic & research-based satellite studies  
+This project has been developed as part of an academic research initiative, demonstrating:
 
+• Satellite data preprocessing
+• Remote-sensing based feature extraction
+• Convective cloud characterization
+• Python-based scientific analysis
+• Weather-research application development
 
----
+🙌 Acknowledgements
 
-## 🚀 Future Enhancements (Planned)
+Satellite Data — ISRO / MOSDAC
+Platform — INSAT-3D Imager
 
-• Multi-scene batch processing  
-• Time-series TCC motion tracking  
-• Cloud lifecycle evolution analysis  
-• Automatic MOSDAC data ingestion  
-• Cyclone precursor detection support  
-• Real-time monitoring dashboard  
-
-
----
-
-## 📌 Project Status
-
-The system is currently in a **working and stable stage**.
-
-Real INSAT-3D satellite data has been successfully processed to:
-
-• Detect Tropical Cloud Clusters  
-• Filter valid convective structures  
-• Compute scientifically meaningful parameters  
-• Present results using an interactive web-based dashboard  
-
-
----
-
-## 👨‍🎓 Academic Project Note
-
-This work is developed as an academic research-oriented project and demonstrates:
-
-• Satellite data preprocessing  
-• Remote sensing-based feature extraction  
-• Convective cloud characterization  
-• Python-based scientific computing  
-• Weather-research application development  
-
-
----
-
-## 🙌 Credits
-
-Satellite Data Source — **ISRO / MOSDAC**  
-Platform — **INSAT-3D Imager**
-
-Project Development — **Student Research Work**
-
+Developed as part of student research work

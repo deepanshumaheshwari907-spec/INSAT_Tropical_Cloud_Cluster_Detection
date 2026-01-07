@@ -14,7 +14,18 @@ from streamlit_folium import st_folium
 import folium
 
 
-st.title("INSAT-3D Tropical Cloud Cluster (TCC) Detection")
+st.markdown("""
+<div style='text-align:center; padding:12px'>
+    <h1 style='color:#1f4e79'>
+        🌩 INSAT-3D Tropical Cloud Cluster Detection
+    </h1>
+    <h4>
+        AI-Based Convective Cloud Identification using IR Brightness Temperature
+    </h4>
+    <p><b>Minor Project | INSAT-3D L1C Data | Indian Ocean Region</b></p>
+</div>
+""", unsafe_allow_html=True)
+
 st.write("Upload INSAT L1C .h5 file to detect cloud clusters")
 
 

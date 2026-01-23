@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 
@@ -5,6 +6,7 @@ from thresholding import apply_irbt_threshold
 from cluster_detect import detect_cloud_clusters
 from tcc_filter import is_valid_tcc
 from tcc_features import compute_tcc_features
+from severity import classify_severity
 from summary_generator import generate_tcc_summary
 
 # Geo + Tb loader
@@ -85,6 +87,8 @@ for r in regions:
     if is_valid_tcc(r):
 
         feat = compute_tcc_features(r, Tb, lat, lon)
+
+        feat["severity"] = classify_severity(feat["min_tb"])
 
         # ADD SUMMARY HERE
         feat["summary"] = generate_tcc_summary(feat)

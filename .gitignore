@@ -1,8 +1,8 @@
 __pycache__/
 *.pyc
 
-data/
-uploaded_file.h5
+data/*
+!data/demo_insat.h5
 tcc_results.csv
 tcc_map.html
 *.h5

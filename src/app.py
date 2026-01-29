@@ -110,6 +110,45 @@ st.write(
 st.info(
     "🛰 Live Analysis Mode • Satellite IR data processed in real-time for cloud risk assessment"
 )
+# ================= LANDING INFO =================
+st.markdown("## 👥 Who is this platform for?")
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    st.markdown("""
+    **🌦 Weather & Climate Researchers**  
+    Analyze tropical convective cloud systems using real satellite data.
+    """)
+
+with c2:
+    st.markdown("""
+    **🛰 Remote Sensing Students**  
+    Learn how INSAT-3D infrared data is processed and interpreted.
+    """)
+
+with c3:
+    st.markdown("""
+    **⚠ Disaster & Risk Analysts**  
+    Identify potentially hazardous cloud systems for early attention.
+    """)
+st.markdown("## ✨ What makes this platform different?")
+
+st.markdown("""
+• Uses **real INSAT-3D satellite data** (no dummy or toy datasets)  
+• Focuses on **interpretability**, not black-box AI  
+• Converts satellite observations into **risk-oriented intelligence**  
+• Can be explored instantly using a **built-in demo scene**
+""")
+
+st.divider()
+st.info(
+    "🚀 You are viewing a live prototype of an INSAT-3D based cloud risk intelligence platform. "
+    "This system is under active development and demonstrates how satellite data can be "
+    "converted into actionable weather insights."
+)
+
+# ================= DATA LOADING (IMPORTANT PART) =================
 st.markdown("### ⚡ Quick Demo")
 
 run_demo = st.button("▶ Run 30-second Demo")
@@ -117,8 +156,6 @@ run_demo = st.button("▶ Run 30-second Demo")
 if run_demo:
     st.success("Demo started • Using built-in INSAT-3D satellite scene")
 
-
-# ================= DATA LOADING (IMPORTANT PART) =================
 if data_source == "Demo File (Built-in)":
 
     demo_path = os.path.join("data", "demo_insat.h5")
@@ -170,43 +207,7 @@ if len(results) == 0:
 df = pd.DataFrame(results)
 df = df.sort_values(by="risk_score", ascending=False).reset_index(drop=True)
 
-# ================= LANDING INFO =================
-st.markdown("## 👥 Who is this platform for?")
 
-c1, c2, c3 = st.columns(3)
-
-with c1:
-    st.markdown("""
-    **🌦 Weather & Climate Researchers**  
-    Analyze tropical convective cloud systems using real satellite data.
-    """)
-
-with c2:
-    st.markdown("""
-    **🛰 Remote Sensing Students**  
-    Learn how INSAT-3D infrared data is processed and interpreted.
-    """)
-
-with c3:
-    st.markdown("""
-    **⚠ Disaster & Risk Analysts**  
-    Identify potentially hazardous cloud systems for early attention.
-    """)
-st.markdown("## ✨ What makes this platform different?")
-
-st.markdown("""
-• Uses **real INSAT-3D satellite data** (no dummy or toy datasets)  
-• Focuses on **interpretability**, not black-box AI  
-• Converts satellite observations into **risk-oriented intelligence**  
-• Can be explored instantly using a **built-in demo scene**
-""")
-
-st.divider()
-st.info(
-    "🚀 You are viewing a live prototype of an INSAT-3D based cloud risk intelligence platform. "
-    "This system is under active development and demonstrates how satellite data can be "
-    "converted into actionable weather insights."
-)
 
 # ================= DASHBOARD =================
 st.markdown("## 🧠 How to read this dashboard")

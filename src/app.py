@@ -110,6 +110,61 @@ st.write(
 st.info(
     "🛰 Live Analysis Mode • Satellite IR data processed in real-time for cloud risk assessment"
 )
+
+# ================= DATA LOADING (IMPORTANT PART) =================
+st.markdown("### ⚡ Quick Demo")
+
+run_demo = st.button("▶ Run 30-second Demo")
+
+if run_demo:
+    st.success("Demo started • Using built-in INSAT-3D satellite scene")
+
+if data_source == "Demo File (Built-in)":
+
+    demo_path = os.path.join("data", "demo_insat.h5")
+
+    if not os.path.exists(demo_path):
+        st.error("Demo INSAT file not found in data/demo_insat.h5")
+        st.stop()
+
+    st.success("✔ Running in DEMO mode using a preloaded INSAT-3D satellite scene")
+    Tb, lat, lon = load_tb_lat_lon(demo_path)
+
+else:
+    st.markdown("## 🚀 Upload INSAT File")
+    uploaded = st.file_uploader("Upload INSAT-3D L1C .h5 File", type=["h5"])
+
+    if uploaded is None:
+        st.info("Please upload a satellite file to continue.")
+        st.stop()
+
+    with open("uploaded_file.h5", "wb") as f:
+        f.write(uploaded.getbuffer())
+
+    Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
+
+    # ================= PROCESS =================
+mask = Tb < threshold
+_, regions = detect_cloud_clusters(mask)
+
+with st.spinner("Analyzing satellite data and detecting cloud systems..."):
+    mask = Tb < threshold
+    _, regions = detect_cloud_clusters(mask)
+
+
+results = []
+for r in regions:
+    if is_valid_tcc(r):
+        feat = compute_tcc_features(r, Tb, lat, lon)
+        feat["severity"] = classify_severity(feat["min_tb"])
+        feat["summary"] = generate_tcc_summary(feat)
+        results.append(feat)
+
+if len(results) == 0:
+    st.warning("No valid Tropical Cloud Clusters detected.")
+    st.stop()
+
+
 # ================= LANDING INFO =================
 st.markdown("## 👥 Who is this platform for?")
 
@@ -147,61 +202,6 @@ st.info(
     "This system is under active development and demonstrates how satellite data can be "
     "converted into actionable weather insights."
 )
-
-# ================= DATA LOADING (IMPORTANT PART) =================
-st.markdown("### ⚡ Quick Demo")
-
-run_demo = st.button("▶ Run 30-second Demo")
-
-if run_demo:
-    st.success("Demo started • Using built-in INSAT-3D satellite scene")
-
-if data_source == "Demo File (Built-in)":
-
-    demo_path = os.path.join("data", "demo_insat.h5")
-
-    if not os.path.exists(demo_path):
-        st.error("Demo INSAT file not found in data/demo_insat.h5")
-        st.stop()
-
-    st.success("✔ Running in DEMO mode using a preloaded INSAT-3D satellite scene")
-    Tb, lat, lon = load_tb_lat_lon(demo_path)
-
-else:
-    st.markdown("## 🚀 Upload INSAT File")
-    uploaded = st.file_uploader("Upload INSAT-3D L1C .h5 File", type=["h5"])
-
-    if uploaded is None:
-        st.info("Please upload a satellite file to continue.")
-        st.stop()
-
-    with open("uploaded_file.h5", "wb") as f:
-        f.write(uploaded.getbuffer())
-
-    Tb, lat, lon = load_tb_lat_lon("uploaded_file.h5")
-
-
-# ================= PROCESS =================
-mask = Tb < threshold
-_, regions = detect_cloud_clusters(mask)
-
-with st.spinner("Analyzing satellite data and detecting cloud systems..."):
-    mask = Tb < threshold
-    _, regions = detect_cloud_clusters(mask)
-
-
-results = []
-for r in regions:
-    if is_valid_tcc(r):
-        feat = compute_tcc_features(r, Tb, lat, lon)
-        feat["severity"] = classify_severity(feat["min_tb"])
-        feat["summary"] = generate_tcc_summary(feat)
-        results.append(feat)
-
-if len(results) == 0:
-    st.warning("No valid Tropical Cloud Clusters detected.")
-    st.stop()
-
 
 # ================= DATAFRAME =================
 df = pd.DataFrame(results)

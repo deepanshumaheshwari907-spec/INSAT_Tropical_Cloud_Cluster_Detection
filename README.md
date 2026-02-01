@@ -18,7 +18,7 @@ without uploading satellite data files.
 ## 📸 Dashboard Screenshots
 
 ### Extreme Weather Alert & System Overview
-![Extreme Weather Alert](screenshots/hero_alert.png)
+![Extreme Weather Alert](screenshots/Screenshot%202026-02-02%20035751.png)
 
 ### Impact Area Visualization
 ![Impact Area Map](screenshots/impact_map.png)

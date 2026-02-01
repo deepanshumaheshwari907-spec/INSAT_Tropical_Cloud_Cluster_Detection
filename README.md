@@ -132,7 +132,7 @@ or public safety advisories.
 
 ## 👨‍💻 Author
 
-**Developed by:**-**Deepanshu Maheshwari**  
+**Developed by:**-  **Deepanshu Maheshwari**  
 Applied AI | Satellite Data | Weather Intelligence  
 
 ---

@@ -10,7 +10,7 @@ This project explores how **raw satellite observations** can be transformed into
 
 ## 🚀 Live Demo
 
-👉 **Live Application:** (Streamlit Cloud link here)
+👉 **Live Application:** (https://insattropicalcloudclusterdetection-eumm4o7mcqwbpdirjd5iec.streamlit.app/)
 
 The application includes a **built-in demo mode**, allowing users to explore the system  
 without uploading satellite data files.

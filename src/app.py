@@ -70,13 +70,29 @@ def get_trend_icon(trend):
     else:
         return "⏸️"
 
+def format_lat_lon(lat, lon):
+    lat_dir = "N" if lat >= 0 else "S"
+    lon_dir = "E" if lon >= 0 else "W"
+    return f"{abs(lat):.1f}°{lat_dir}, {abs(lon):.1f}°{lon_dir}"
+
+
+def approximate_region(lat, lon):
+    if 5 <= lat <= 22 and 80 <= lon <= 95:
+        return "Bay of Bengal"
+    if 5 <= lat <= 25 and 60 <= lon <= 75:
+        return "Arabian Sea"
+    if 18 <= lat <= 28 and 72 <= lon <= 82:
+        return "Central India"
+    if 8 <= lat < 18 and 75 <= lon <= 85:
+        return "South India"
+    return "Open Region"
 
 # ================= SIDEBAR =================
 with st.sidebar:
-    st.markdown("### 🎛 System Controls")
+    st.markdown("### 🎮 Control Panel")
     st.caption("Configure detection parameters and data source")
 
-    st.markdown("## ⚙ Analysis Controls")
+    st.caption("Adjust settings for cloud detection")
 
     data_source = st.radio(
         "Data Source",
@@ -85,39 +101,39 @@ with st.sidebar:
     )
 
     threshold = st.slider(
-        "IR Brightness Temperature Threshold (K)",
-        200, 260, 235, 1
+    "Cloud Detection Sensitivity (Temperature)",
+    200, 260, 235, 1,
+    help="Lower value = only very cold and strong clouds detected"
     )
+
+
 
     st.caption(f"Cold clouds detected below {threshold} K")
     
 
 
 # ================= HERO =================
-st.markdown(
-    "## 🌩 INSAT-3D Tropical Cloud Risk Intelligence"
+st.markdown("## 🚨 Tropical Cloud Early Warning")
+st.caption("INSAT-3D satellite based extreme weather alert system")
+
+
+st.caption(
+    "Detect high-risk tropical cloud systems from INSAT-3D satellite data "
+    "before they turn into extreme weather events."
 )
 
-st.markdown(
-    "**Satellite-based system to detect, analyze, and prioritize hazardous tropical cloud systems**"
-)
+st.info("🛰 Live INSAT-3D Satellite Monitoring • Real-time risk assessment")
 
-st.write(
-    "This platform uses real INSAT-3D infrared brightness temperature data and applied AI techniques "
-    "to identify tropical cloud clusters, assess their intensity, and generate risk-oriented insights "
-    "for research and decision support."
-)
-st.info(
-    "🛰 Live Analysis Mode • Satellite IR data processed in real-time for cloud risk assessment"
-)
 
 # ================= DATA LOADING (IMPORTANT PART) =================
 st.markdown("### ⚡ Quick Demo")
 
-run_demo = st.button("▶ Run 30-second Demo")
+run_demo = st.button("▶ Play Risk Scenario")
 
 if run_demo:
-    st.success("Demo started • Using built-in INSAT-3D satellite scene")
+    st.warning(
+        "🌀 Scenario running: Rapid cloud cooling detected → Risk increasing → Alert generation in progress"
+    )
 
 if data_source == "Demo File (Built-in)":
 
@@ -166,170 +182,88 @@ if len(results) == 0:
 
 
 # ================= LANDING INFO =================
-st.markdown("## 👥 Who is this platform for?")
+#st.markdown("## 👥 Who is this platform for?")
 
-c1, c2, c3 = st.columns(3)
+#c1, c2, c3 = st.columns(3)
 
-with c1:
-    st.markdown("""
-    **🌦 Weather & Climate Researchers**  
-    Analyze tropical convective cloud systems using real satellite data.
-    """)
+#with c1:
+#   st.markdown("""
+#  **🌦 Weather & Climate Researchers**  
+#    Analyze tropical convective cloud systems using real satellite data.
+#    """)
 
-with c2:
-    st.markdown("""
-    **🛰 Remote Sensing Students**  
-    Learn how INSAT-3D infrared data is processed and interpreted.
-    """)
+#with c2:
+#    st.markdown("""
+#    **🛰 Remote Sensing Students**  
+#    Learn how INSAT-3D infrared data is processed and interpreted.
+#    """)
 
-with c3:
-    st.markdown("""
-    **⚠ Disaster & Risk Analysts**  
-    Identify potentially hazardous cloud systems for early attention.
-    """)
-st.markdown("## ✨ What makes this platform different?")
+#with c3:
+#    st.markdown("""
+#    **⚠ Disaster & Risk Analysts**  
+#    Identify potentially hazardous cloud systems for early attention.
+#    """)
+#st.markdown("## ✨ What makes this platform different?")
 
-st.markdown("""
-• Uses **real INSAT-3D satellite data** (no dummy or toy datasets)  
-• Focuses on **interpretability**, not black-box AI  
-• Converts satellite observations into **risk-oriented intelligence**  
-• Can be explored instantly using a **built-in demo scene**
-""")
+#st.markdown("""
+#• Uses **real INSAT-3D satellite data** (no dummy or toy datasets)  
+#• Focuses on **interpretability**, not black-box AI  
+#• Converts satellite observations into **risk-oriented intelligence**  
+#• Can be explored instantly using a **built-in demo scene**
+#""")
 
-st.divider()
-st.info(
-    "🚀 You are viewing a live prototype of an INSAT-3D based cloud risk intelligence platform. "
-    "This system is under active development and demonstrates how satellite data can be "
-    "converted into actionable weather insights."
-)
+#st.divider()
+#st.info(
+#    "🚀 You are viewing a live prototype of an INSAT-3D based cloud risk intelligence platform. "
+#    "This system is under active development and demonstrates how satellite data can be "
+#    "converted into actionable weather insights."
+#)
 
 # ================= DATAFRAME =================
 df = pd.DataFrame(results)
 df = df.sort_values(by="risk_score", ascending=False).reset_index(drop=True)
 
+main_alert = df.iloc[0]
 
-
-# ================= DASHBOARD =================
-st.markdown("## 🧠 How to read this dashboard")
-
-st.write("""
-This system analyzes **infrared satellite data** to detect **cold, deep convective cloud clusters**.
-
-• **Lower temperature (Tb)** → stronger convection  
-• **Larger radius** → wider cloud spread  
-• **Higher risk score** → potentially dangerous weather system  
-
-The dashboard highlights **high-priority tropical cloud systems** that may require closer monitoring.
-""")
-
-st.caption(
-    "INSAT-3D Tropical Cloud Risk Intelligence Platform • Experimental decision-support system"
-)
-st.markdown("""
-<div style="
-    font-size:26px;
-    font-weight:600;
-    margin-top:40px;
-    margin-bottom:10px;
-    color:#ffffff;
-">
-📊 Detection Dashboard
-</div>
-""", unsafe_allow_html=True)
-
-
-c1, c2, c3, c4, c5 = st.columns(5)
-with c1:
-    st.metric("Detected Clusters", len(regions))
-with c2:
-    st.metric("Valid TCCs", len(df))
-with c3:
-    st.metric("Avg Tb (K)", f"{df['mean_tb'].mean():.1f}")
-with c4:
-    st.metric("Max Radius (km)", f"{df['max_radius_km'].max():.0f}")
-with c5:
-    st.metric("Highest Risk", f"{df['risk_score'].max():.1f}")
-
-
-# ================= TOP-3 =================
-st.markdown("""
-<div style="
-    font-size:26px;
-    font-weight:600;
-    margin-top:50px;
-    margin-bottom:14px;
-    color:#ff4d4d;
-">
-🚨 High-Priority Tropical Cloud Systems
-</div>
-""", unsafe_allow_html=True)
-
-
-top3 = df.head(3)
-for i, row in top3.iterrows():
-    st.markdown(
-        f"""
-        🚨 **ALERT SYSTEM #{i+1}**
-        • Risk Level: **{row['risk_level']}**  
-        • Risk Score: **{row['risk_score']} / 100**  
-        • Mean Tb: **{row['mean_tb']:.1f} K**  
-        • Radius: **{row['mean_radius_km']:.0f} km**
-        """
-    )
-
-st.divider()
-if run_demo:
-    st.caption("📌 Demo mode highlights the most significant cloud systems in this scene")
-
-
-# ================= TABLE =================
-st.warning(
-    "⚠ Scientific values are derived from satellite pixel analysis and intended for research and experimental use."
+coord_text = format_lat_lon(
+    main_alert['center_lat'],
+    main_alert['center_lon']
 )
 
-st.subheader("Scientific TCC Feature Table")
-st.dataframe(df, use_container_width=True)
-
-st.download_button(
-    "⬇ Download CSV",
-    df.to_csv(index=False).encode("utf-8"),
-    "TCC_results.csv",
-    "text/csv"
+region_text = approximate_region(
+    main_alert['center_lat'],
+    main_alert['center_lon']
 )
 
 
-# ================= RISK SUMMARY =================
-st.subheader("TCC Risk Intelligence Summary")
+st.error(
+f"""
+🚨 EXTREME WEATHER WARNING
 
-for i, row in df.iterrows():
-    color = get_risk_color(row["risk_level"])
+A high-risk tropical cloud system has been detected
+by INSAT-3D satellite monitoring.
 
-    st.markdown(
-        f"""
-        <div style="
-            border-left:6px solid {color};
-            padding:14px;
-            margin-bottom:10px;
-            background:#111;
-            border-radius:6px
-        ">
-        <b>TCC #{i+1}</b><br>
-        Severity: {row['severity']}<br>
-        Risk Level: {row['risk_level']}<br>
-        Risk Score: {row['risk_score']}<br>
-        Trend: {row['trend']} {get_trend_icon(row['trend'])}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+📍 Location: {coord_text} ({region_text})  
+🌡 Cloud Temperature: {main_alert['mean_tb']:.1f} K  
+📐 Cloud Radius: {main_alert['mean_radius_km']:.0f} km  
 
-    st.progress(row["risk_score"] / 100)
-    st.divider()
+⚠ Risk Level: {main_alert['risk_level']}  
+🔥 Risk Score: {main_alert['risk_score']} / 100  
 
+💥 Possible Impact:
+Heavy Rainfall • Thunderstorm • Flooding
+"""
+)
+st.success("🛰 System Status: Active • Monitoring tropical cloud systems")
+st.markdown("---")
 
 # ================= MAP =================
-st.subheader("Risk-Aware TCC Map")
+st.subheader("🗺 Impact Area of Active Weather Warning")
+st.caption(
+    "The map below shows the possible spatial influence of the detected high-risk cloud system"
+)
 
+st.info("🔴 Red circles = High risk | 🟡 Medium | 🟢 Low risk")
 m = folium.Map(location=[10, 80], zoom_start=5)
 
 for idx, row in df.iterrows():
@@ -354,18 +288,201 @@ for idx, row in df.iterrows():
 st_folium(m, width=1100, height=600)
 st.markdown("---")
 
+# ================= DASHBOARD =================
+st.subheader("🧠 How to Read This Dashboard")
+
+st.write(
+    "This system continuously monitors **infrared satellite data** to identify "
+    "**dangerous tropical cloud systems** before they evolve into extreme weather events."
+)
+
+st.markdown(
+    """
+    **What the system looks for:**
+
+    • 🌡 **Colder clouds** → stronger vertical convection  
+    • 📐 **Larger cloud spread** → wider area of possible impact  
+    • ⚠️ **Higher risk score** → greater likelihood of hazardous weather  
+
+    The dashboard automatically **prioritizes the most critical cloud systems**, "
+    "so attention is focused where risk is highest.
+    """
+)
+
+st.caption(
+    "🛰 INSAT-3D Tropical Cloud Early Warning • Experimental decision-support prototype"
+)
+
+st.markdown("---")
+
+st.markdown(
+    "<div style='font-size:24px; font-weight:600;'>📊 Live Detection Overview</div>",
+    unsafe_allow_html=True
+)
+
+c1, c2, c3, c4, c5 = st.columns(5)
+
+with c1:
+    st.metric("🌀 Detected Clusters", len(regions))
+
+with c2:
+    st.metric("✅ Valid Cloud Systems", len(df))
+
+with c3:
+    st.metric(
+        "🌡 Avg Cloud Temp (K)",
+        f"{df['mean_tb'].mean():.1f}",
+        help="Lower temperature indicates stronger convective activity"
+    )
+
+with c4:
+    st.metric(
+        "📐 Max Cloud Radius (km)",
+        f"{df['max_radius_km'].max():.0f}",
+        help="Represents the widest spatial spread among detected systems"
+    )
+
+with c5:
+    st.metric(
+        "🚨 Highest Risk Score",
+        f"{df['risk_score'].max():.1f}",
+        help="The most potentially dangerous cloud system in the current scene"
+    )
+
+
+# ================= TOP-3 =================
+st.markdown("""
+<div style="
+    font-size:26px;
+    font-weight:600;
+    margin-top:50px;
+    margin-bottom:14px;
+    color:#ff4d4d;
+">
+🚨 High-Priority Tropical Cloud Systems
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("## 🚨 LIVE WEATHER ALERTS")
+st.caption("High-risk tropical cloud systems detected from satellite data")
+
+with st.expander("⚠️ View Other High-Risk Cloud Systems"):
+    top3 = df.head(3)
+    for i, row in top3.iterrows():
+
+        coord_text = format_lat_lon(
+            row['center_lat'],
+            row['center_lon']
+        )
+
+        st.warning(
+            f"""
+            ⚠️ **TCC #{i+1}**
+
+            📍 Location: {coord_text}  
+            ⚠ Risk Score: {row['risk_score']} / 100  
+            ⏱ Trend: {row['trend']}
+            """
+        )
+
+st.divider()
+if run_demo:
+    st.caption("📌 Demo mode highlights the most significant cloud systems in this scene")
+
+
+# ================= TABLE =================
+st.warning(
+    "⚠ Scientific values are derived from satellite pixel analysis and intended for research and experimental use."
+)
+
+st.caption("🔬 Detailed scientific data (for researchers & analysis)")
+st.subheader("Scientific TCC Feature Table")
+st.dataframe(df, use_container_width=True)
+
+st.download_button(
+    "⬇ Download CSV",
+    df.to_csv(index=False).encode("utf-8"),
+    "TCC_results.csv",
+    "text/csv"
+)
+
+
+# ================= RISK SUMMARY =================
+st.subheader("TCC Risk Intelligence Summary")
+if False:
+    for i, row in df.iterrows():
+        color = get_risk_color(row["risk_level"])
+
+    st.markdown(
+        f"""
+        <div style="
+            border-left:6px solid {color};
+            padding:14px;
+            margin-bottom:10px;
+            background:#111;
+            border-radius:6px
+        ">
+        <b>TCC #{i+1}</b><br>
+        Severity: {row['severity']}<br>
+        Risk Level: {row['risk_level']}<br>
+        Risk Score: {row['risk_score']}<br>
+        Trend: {row['trend']} {get_trend_icon(row['trend'])}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.progress(row["risk_score"] / 100)
+    st.divider()
+
+show_all = st.checkbox("🔽 Show all detected cloud systems")
+
+if show_all:
+    display_df = df
+else:
+    display_df = df.head(6)
+
+st.subheader("🧠 Cloud Risk Summary")
+
+cards_per_row = 3
+rows = [display_df.iloc[i:i+cards_per_row] for i in range(0, len(display_df), cards_per_row)]
+
+for row_group in rows:
+    cols = st.columns(3)
+    for col, (_, row) in zip(cols, row_group.iterrows()):
+        with col:
+            st.markdown(
+                f"""
+                <div style="
+                    background:#111;
+                    border-left:5px solid {get_risk_color(row['risk_level'])};
+                    padding:14px;
+                    border-radius:10px;
+                    margin-bottom:16px;
+                ">
+                <b>⚠️ TCC</b><br>
+                🌡 Temp: {row['mean_tb']:.1f} K<br>
+                📐 Radius: {row['mean_radius_km']:.0f} km<br>
+                ⚠ Risk: {row['risk_level']}<br>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+
 st.markdown(
     """
     <div style="
         text-align:center;
         color:#9aa4b2;
         font-size:13px;
-        padding:16px;
+        padding:18px;
+        margin-top:30px;
     ">
-        INSAT-3D Tropical Cloud Risk Intelligence Platform<br>
-        Built using real satellite data for applied AI & weather intelligence<br>
+        🛰 <b>INSAT-3D Tropical Cloud Early Warning System</b><br>
+        Turning satellite observations into early-warning intelligence<br>
         <span style="font-size:12px;">
-        Developed by Deepanshu Maheshwari • Experimental research & product prototype
+        Built & developed by Deepanshu Maheshwari • Experimental research & product prototype
         </span>
     </div>
     """,

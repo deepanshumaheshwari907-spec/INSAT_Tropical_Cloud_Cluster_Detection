@@ -18,19 +18,19 @@ without uploading satellite data files.
 ## 📸 Dashboard Screenshots
 
 ### Extreme Weather Alert & System Overview
-![Extreme Weather Alert](screenshots/Screenshot%202026-02-02%20035751.png)
+![Extreme Weather Alert](ScreenShot/Screenshot%202026-02-02%20035751.png)
 
 ### Impact Area Visualization
-![Impact Area Map](screenshots/impact_map.png)
+![Impact Area Map](ScreenShot/Screenshot%202026-02-02%20035949.png)
 
 ### Live High-Risk Cloud Alerts
-![Live Weather Alerts](screenshots/live_alerts.png)
+![Live Weather Alerts](ScreenShot/Screenshot%202026-02-02%20040012.png)
 
 ### Scientific Feature Extraction Table
-![Scientific Feature Table](screenshots/feature_table.png)
+![Scientific Feature Table](ScreenShot/Screenshot%202026-02-02%20040028.png)
 
 ### Cloud Risk Summary Cards
-![Cloud Risk Cards](screenshots/risk_cards.png)
+![Cloud Risk Cards](ScreenShot/Screenshot%202026-02-02%20040041.png)
 
 ---
 

@@ -15,6 +15,23 @@ This project explores how **raw satellite observations** can be transformed into
 The application includes a **built-in demo mode**, allowing users to explore the system  
 without uploading satellite data files.
 
+## 📸 Dashboard Screenshots
+
+### Extreme Weather Alert & System Overview
+![Extreme Weather Alert](screenshots/hero_alert.png)
+
+### Impact Area Visualization
+![Impact Area Map](screenshots/impact_map.png)
+
+### Live High-Risk Cloud Alerts
+![Live Weather Alerts](screenshots/live_alerts.png)
+
+### Scientific Feature Extraction Table
+![Scientific Feature Table](screenshots/feature_table.png)
+
+### Cloud Risk Summary Cards
+![Cloud Risk Cards](screenshots/risk_cards.png)
+
 ---
 
 ## 🎯 What does this system do?

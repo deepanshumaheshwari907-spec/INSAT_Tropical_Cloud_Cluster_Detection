@@ -257,6 +257,62 @@ Heavy Rainfall • Thunderstorm • Flooding
 st.success("🛰 System Status: Active • Monitoring tropical cloud systems")
 st.markdown("---")
 
+st.warning(
+    "⚠️ Disclaimer: This system is an experimental research prototype developed for "
+    "academic and exploratory purposes. It is **not an operational weather forecasting "
+    "or official early warning system**."
+)
+
+with st.expander("🔍 View System Scope & Responsibility"):
+    
+    st.markdown("### System Scope & Responsibility")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown(
+            """
+            <div style="
+                background:#0f172a;
+                border-left:6px solid #22c55e;
+                padding:18px;
+                border-radius:12px;
+                height:100%;
+            ">
+            <h4>✅ What this system <b>DOES</b></h4>
+            <ul>
+                <li>Detects <b>cold, deep convective cloud clusters</b> using INSAT-3D infrared data</li>
+                <li>Analyzes cloud properties such as <b>temperature, size, and spatial spread</b></li>
+                <li>Assigns a <b>relative risk score</b> to prioritize potentially hazardous systems</li>
+                <li>Presents results as <b>alerts, maps, and summaries</b></li>
+            </ul>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with col2:
+        st.markdown(
+            """
+            <div style="
+                background:#0f172a;
+                border-left:6px solid #ef4444;
+                padding:18px;
+                border-radius:12px;
+                height:100%;
+            ">
+            <h4>❌ What this system <b>DOES NOT</b> do</h4>
+            <ul>
+                <li>Does <b>not</b> predict exact rainfall amounts or cyclone landfall</li>
+                <li>Does <b>not</b> replace official weather forecasts or warning agencies</li>
+                <li>Does <b>not</b> claim operational or real-time forecasting accuracy</li>
+                <li>Does <b>not</b> issue certified public alerts</li>
+            </ul>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
 # ================= MAP =================
 st.subheader("🗺 Impact Area of Active Weather Warning")
 st.caption(
